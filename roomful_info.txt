@@ -1,0 +1,38 @@
+Roomful
+
+ivan@roomful.co
+GetWasted@101
+RoomfulIvan123
+
+
+
+
+ssh -i CryptoServer_key_pair.pem ubuntu@35.92.172.176
+
+export WEB3_INFURA_PROJECT_ID=7603b413ca594dc19a4b02deba7ea80c
+export WEB3_INFURA_API_SECRET=9f6a228f1f9e40609712db7168f2d79d
+
+RQC5brd7c9EXXfG2wt3fdLUWb8Cnieci3x
+Uvf2e5w1cNH7LZjE5riUJef2jKFrsYh3oQD1YH7PWAUFX5huXMKB
+
+./verus -chain=vrsctest importprivkey Uvf2e5w1cNH7LZjE5riUJef2jKFrsYh3oQD1YH7PWAUFX5huXMKB
+
+./verus -chain=vrsctest registeridentity ‘
+{
+  "txid": "3ab69bcdd9fcd10c979d4e3db6878d2e74b6474a73ed445c2eb12ae21df8d8e7",
+  "namereservation": {
+    "version": 1,
+    "name": "ivanroomful",
+    "parent": "iJhCezBExJHvtyH3fGhNnt2NhU4Ztkf2yq",
+    "salt": "0956fc01fff9841db6e94714cabd16c9223b8aa8d3bc0645be13dae42073d6d9",
+    "referral": "",
+    "nameid": "i5dc1fewWpLSwD1f97V8Pr3P9EjaFjESdp"
+  }
+, "identity":{"name”:”ivanroomful”,”primaryaddresses":["RQC5brd7c9EXXfG2wt3fdLUWb8Cnieci3x"], "minimumsignatures":1}}'
+
+
+API server listening on /ip4/127.0.0.1/tcp/5001
+WebUI: http://127.0.0.1:5001/webui
+Gateway (readonly) server listening on /ip4/127.0.0.1/tcp/8080
+
+verus -chain=vrsctest definecurrency '{"name":"roomful_nft_token","options":2080,"preallocations":[{"ivan@":0.00000001}],"maxpreconversion":[0]}'
