@@ -49,59 +49,32 @@ class Subject extends VDXFObject {
 
 export const verusLogin = async () => {
 
-    const VerusId = new VerusIdInterface("VRSCTEST", "https://api.verus.services")
-
-    //random salt
-    const uuid = uuidv4();
-
-    const challengeParams: ChallengeInterface = {
-        challenge_id: uuid,// challenge specific random vdxf hash
-        created_at: Date.now(), // current timestamp
-        redirect_uris: [new RedirectUri("http://localhost:3000/verifyLogin?", LOGIN_CONSENT_REDIRECT_VDXF_KEY.vdxfid)],
-        requested_access: [IDENTITY_VIEW.vdxfid], // needs to be changed to R-Address View Vdxf key
-        // subject: [
-        //   new Subject(
-        //     "http://35.162.3.174:5000/verifyProvisioningRequest", //change to roomful server to verify provisioning request, provision id, send back provisioning response
-        //     LOGIN_CONSENT_CONTEXT_ID_PROCUREMENT_SUBJECT_VDXF_KEY.vdxfid
-        //   ),
-        // ]
+    // Change to Roomful URLs!!!
+    const body = {
+      baseUrl: 'http://127.0.0.1:3000/',
+      redirectUrl: 'http://127.0.0.1:3000/verifyLogin?'
     }
 
-    const loginConsentChallenge = new Challenge(challengeParams);
+    var config = {
+      method: 'post',
+      url: 'http://18.237.208.201:3000/verusIdLogin',
+      headers: { 
+        'Content-Type': 'application/json'
+      },
+      json : body
+    };
 
-    // // const loginConsentChallenge = new Challenge(challengeParams);
-    // const loginConsentRequest = await VerusId.createLoginConsentRequest({
-    //      signingId: "i8jHXEEYEQ7KEoYe6eKXBib8cUBZ6vjWSd", //change to i-address for roomful login consent signer identity
-    //      challenge: challengeParams,
-    //      chainIAddr: VERUSTEST_I_ADDR
-    //   })
+    let walletRedirectUrl;
+    try {
+      const res = await Axios(config);
+      console.log(res.data);
+      walletRedirectUrl = res.data.deepLink;
+    } catch {
+      // in case server is down, use hardcoded deeplink
+      walletRedirectUrl = "i5jtwbp6zymeay9llnraglgjqgdrffsau4://x-callback-url/i3dQmgjq8L8XFGQUrs9Gpo8zvPWqs1KMtV/?i3dQmgjq8L8XFGQUrs9Gpo8zvPWqs1KMtV=Aa4uvSgsLAWiinJ7Go12_G6zOcUB_SwBpu-eojVjXjKBJP80KdufnpG2Ti25QPm3OsMIWNyD6aDuiIdRLc4A7t3vHSRMeg9ysAUJ8BfPPdpjudQGAUkCBeX2AAABQSBt-4ucfXT7nIipBh4pC7uMlSmGV4R-TM3LnSO8Id77CGckNAI7uGLK2ECcglIVa-8DPG2O0b0Tm2ypTfLF1z_AGSnAPo-o1JwfjbV2JpOK-1fENZwBjxTBSbV2kr8p-JMe9yHu4_7RbGm2z7PBymMAAAAAAAAAAbqJxOWocEcouGM6Y-K9sqH6R6uuAQAAAAAAAW5VlRgDfKbJR3ryHsyWvdxhwtKmASZodHRwczovL29tZWdhLnJvb21mdWwubmV0L3ZlcmlmeUxvZ2luP1Z7moexcTH27rLdC90ZHs5KXWA7AQEA";
+    }
 
-    //requests server to sign message with roomful-login-consent@ (signer identity), and retreives result.
-    console.log("message to be signed: ", loginConsentChallenge.toString());
-    console.log(loginConsentChallenge.login_challenge);
-    const result = await signMessage(loginConsentChallenge);
-
-    let buff = loginConsentChallenge.toString();
-    console.log("buff", buff);
-
-    //create login consent request (signature request) and fires deeplink to verus desktop wallet. desktop wallet redirects to component described on line 21.
-    const signature = result;
-    console.log(signature)
-
-    const verusIdSignature = new VerusIDSignature({signature
-    }, LOGIN_CONSENT_REQUEST_SIG_VDXF_KEY);
-
-    console.log(verusIdSignature);
-
-    const loginConsentRequest = new LoginConsentRequest({
-        system_id: "iJhCezBExJHvtyH3fGhNnt2NhU4Ztkf2yq", //iAddress of VRSCTEST
-        signing_id: 'roomful-login-consent@',
-        signature: verusIdSignature,
-        challenge: loginConsentChallenge,
-    });
-
-    const walletRedirectUrl = deep.desktopWalletLogin(loginConsentRequest);
-    console.log("walletRedirectUrl ", walletRedirectUrl);
-    window.location.assign(walletRedirectUrl);
+    console.log(walletRedirectUrl);
+    return walletRedirectUrl;
 
 };

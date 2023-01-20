@@ -34,10 +34,10 @@ export default class VerifyLogin extends Component {
 
   render() {
     return (
-        <>
+        <div style={{display:'flex', flexDirection: 'column', alignItems:'center', justifyContent:'center', width:'100vw', height:'100vh'}}>
           <div>{this.state.loginStatus.toString()}</div>
-          <div>{this.state.identity.toString()}</div>
-        </>
+          <div style={{marginTop:'1vh'}}>{this.state.identity.toString()}</div>
+        </div>
       );
   }
 }

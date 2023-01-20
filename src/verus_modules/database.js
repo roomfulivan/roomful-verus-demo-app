@@ -15,7 +15,7 @@ const signMessageHelper = (loginConsentChallenge) => {
 
   var config = {
     method: 'post',
-    url: 'http://35.92.172.176:5000/signMessage',
+    url: 'http://18.237.208.201:5000/signMessage',
     headers: { 
       'Content-Type': 'application/json'
     },
@@ -51,7 +51,7 @@ const verifyMessageHelper = (params) => {
 
   var config = {
     method: 'post',
-    url: 'http://35.92.172.176:5000/verifyMessage',
+    url: 'http://18.237.208.201:5000/verifyMessage',
     headers: { 
       'Content-Type': 'application/json'
     },
@@ -76,7 +76,7 @@ const verifyMessageHelper = (params) => {
 export const getIdentity = async (identity) => {
   // Axios.defaults.withCredentials = true;
    try {
-    const result = await Axios.post("http://35.92.172.176:5000/getIdentity", {
+    const result = await Axios.post("http://18.237.208.201:5000/getIdentity", {
         params: identity,
       });
       
@@ -91,7 +91,7 @@ export const getIdentity = async (identity) => {
 export const obfuscateDocument = async (doc) => {
   // Axios.defaults.withCredentials = true;
    try {
-    const result = await Axios.post("http://35.92.172.176:5000/obfuscateDocument", {
+    const result = await Axios.post("http://18.237.208.201:5000/obfuscateDocument", {
         params: JSON.stringify(doc),
       });
       

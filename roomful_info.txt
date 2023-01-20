@@ -7,7 +7,7 @@ RoomfulIvan123
 
 
 
-ssh -i CryptoServer_key_pair.pem ubuntu@35.92.172.176
+ssh -i CryptoServer_key_pair.pem ubuntu@18.237.208.201
 
 export WEB3_INFURA_PROJECT_ID=7603b413ca594dc19a4b02deba7ea80c
 export WEB3_INFURA_API_SECRET=9f6a228f1f9e40609712db7168f2d79d
