@@ -10,7 +10,7 @@ const {
     v4: uuidv4,
   } = require('uuid');
 
-export const verusLogin = async () => {
+export const verusLoginOld = async () => {
 
    //create new challenge with random salt (uuid)
     const challengeClient = new Client({
@@ -61,6 +61,6 @@ export const verusLogin = async () => {
 
     const walletRedirectUrl = deep.desktopWalletLogin(loginConsentRequest);
     console.log("walletRedirectUrl ", walletRedirectUrl);
-    window.location.assign(walletRedirectUrl);
+    return walletRedirectUrl;
 
 };

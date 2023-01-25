@@ -7,11 +7,8 @@ import {
 } from './constants'
 import {verifyMessage} from "./database";
 
-/**
- * Authenticates a seed for eth and electrum modes. Returns true on success, throws
- * error on failiure
- * @param {String} seed Seed to authenticate with
- */
+
+
 export const checkLogin = async () => {
   
     let loginConsentResponse = null;
