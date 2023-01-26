@@ -11,7 +11,8 @@ export default class Login extends Component {
             'url': null,
             'mode': null,
             'loginSuccessful': false,
-            'challengeId': null
+            'challengeId': null,
+            'identity': null
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -32,6 +33,7 @@ export default class Login extends Component {
 
                 //we check if challengeId matches our challengeId from login request and if the verificationResult is true
                 if (verificationResult.challengeId === this.state.challengeId && verificationResult.verificationResult) {
+                    this.setState({identity: verificationResult.identity});
                     this.setState({loginSuccessful: true});
                 } else {
                     this.setState({loginSuccessful: false});
@@ -78,8 +80,15 @@ export default class Login extends Component {
                 </>
             )
         } else {
-            content = <div>Login Successful</div>
+            content = 
+                <>
+                    <div>Login Successful</div>
+                    <div style={{marginTop:'1vh'}}>
+                        Logged in as: {this.state.identity.name}
+                    </div>
+                </>
         }
+        
         return (
             <div style={{display:'flex', flexDirection: 'column', alignItems:'center', justifyContent:'center', width:'100vw', height:'100vh'}}>
                 {content}
