@@ -10,16 +10,17 @@ export default class Login extends Component {
         this.state = {
             'url': null,
             'mode': null,
-            'loginInitiated': false,
-            'loginSuccessful': false
+            'loginSuccessful': false,
+            'challengeId': null
         };
         this.handleClick = this.handleClick.bind(this);
     }
 
+    //open websocket connection when login component is mounted to subscribe to login response updates
     componentDidMount() {
-        this.connection = new WebSocket('ws://18.237.208.201:3000');
-        // this.connection = new WebSocket('ws://127.0.0.1:3000');
-        // listen to onmessage event
+        this.connection = new WebSocket('ws://52.13.27.118:3000');
+
+        // listen for events
         this.connection.onmessage = evt => { 
             // add the new message to state
             console.log(evt.data);
@@ -28,24 +29,21 @@ export default class Login extends Component {
                 //checks event to see if login was successful
                 let verificationResult = JSON.parse(evt.data);
                 console.log(verificationResult);
-                if (verificationResult.verificationResult.result) {
+
+                //we check if challengeId matches our challengeId from login request and if the verificationResult is true
+                if (verificationResult.challengeId === this.state.challengeId && verificationResult.verificationResult) {
                     this.setState({loginSuccessful: true});
                 } else {
                     this.setState({loginSuccessful: false});
                 }
             }
-
         };
-
-        // // for testing purposes send message to websotcket with interval
-        // setInterval( _ => {
-        //     this.connection.send( Math.random() )
-        // }, 2000 )
     }
 
     async handleClick(mode) {
-        let walletRedirectUrl = await verusLogin();
+        let {walletRedirectUrl, challengeId} = await verusLogin();
         this.setState({url: walletRedirectUrl});
+        this.setState({challengeId: challengeId}); //set challengeId so we can compare it to websocket events
         if (mode == "desktop") {
             this.setState({mode: 'desktop'});
             window.location.assign(walletRedirectUrl);
