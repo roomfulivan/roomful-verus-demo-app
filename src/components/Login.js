@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { verusLogin }from "../verus_modules/loginVerus";
+import { verusLogin } from "../verus_modules/loginVerus";
 import { QRCodeCanvas } from "qrcode.react";
+import Main from "./Main";
 
 
 export default class Login extends Component {
@@ -80,17 +81,11 @@ export default class Login extends Component {
                 </>
             )
         } else {
-            content = 
-                <>
-                    <div>Login Successful</div>
-                    <div style={{marginTop:'1vh'}}>
-                        Logged in as: {this.state.identity.name}
-                    </div>
-                </>
+            content = <Main identity={this.state.identity} />
         }
         
         return (
-            <div style={{display:'flex', flexDirection: 'column', alignItems:'center', justifyContent:'center', width:'100vw', height:'100vh'}}>
+            <div style={{display:'flex', flexDirection: 'column', alignItems:'center', width:'100vw', height:'100vh'}}>
                 {content}
             </div>
         );
