@@ -76,7 +76,7 @@ export default class MintForm extends Component {
         console.log(data);
         var config = {
           method: 'post',
-          url: 'http://52.13.27.118:5000/createIdentityWithContentMultimap',
+          url: 'http://52.13.27.118:5000/createAccessToken',
           headers: { 
             'Content-Type': 'application/json'
           },
