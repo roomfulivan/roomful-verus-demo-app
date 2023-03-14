@@ -58,32 +58,32 @@ export default class Login extends Component {
     render() {
         let qrcode = <></>;
         let content;
-        // if (this.state.mode == 'mobile') {
-        //     qrcode = (
-        //     <QRCodeCanvas
-        //       id="qrCode"
-        //       value={this.state.url}
-        //       size={300}
-        //       bgColor={"#00ff00"}
-        //       level={"H"}
-        //     />
-        //   );
-        // }
-        // if (!this.state.loginSuccessful) {
-        //     content = (
-        //         <>
-        //         <h3>Verus ID Login</h3>
-        //         <button type="button" className="btn btn-primary btn-block" onClick={() => this.handleClick('desktop')}>Desktop Wallet Login</button>
-        //         <button style={{marginTop:'1vh'}} type="button" className="btn btn-primary btn-block" onClick={() => this.handleClick('mobile')}>Mobile Wallet Login</button>
-        //         <div style={{marginTop:'1vh'}}>
-        //             {qrcode}
-        //         </div>
-        //         </>
-        //     )
-        // } else {
-        //     content = <Main identity={this.state.identity} />
-        // }
-        content = <Main identity={{"name": "ivan@", "primaryaddresses":["RQC5brd7c9EXXfG2wt3fdLUWb8Cnieci3x"]}} />
+        if (this.state.mode == 'mobile') {
+            qrcode = (
+            <QRCodeCanvas
+              id="qrCode"
+              value={this.state.url}
+              size={300}
+              bgColor={"#00ff00"}
+              level={"H"}
+            />
+          );
+        }
+        if (!this.state.loginSuccessful) {
+            content = (
+                <>
+                <h3>Verus ID Login</h3>
+                <button type="button" className="btn btn-primary btn-block" onClick={() => this.handleClick('desktop')}>Desktop Wallet Login</button>
+                <button style={{marginTop:'1vh'}} type="button" className="btn btn-primary btn-block" onClick={() => this.handleClick('mobile')}>Mobile Wallet Login</button>
+                <div style={{marginTop:'1vh'}}>
+                    {qrcode}
+                </div>
+                </>
+            )
+        } else {
+            content = <Main identity={this.state.identity} />
+        }
+        // content = <Main identity={{"name": "ivan@", "primaryaddresses":["RQC5brd7c9EXXfG2wt3fdLUWb8Cnieci3x"]}} />
 
         return (
             <div style={{display:'flex', flexDirection: 'column', alignItems:'center', width:'100vw', height:'100vh'}}>
